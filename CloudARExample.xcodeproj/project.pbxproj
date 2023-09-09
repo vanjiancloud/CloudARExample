@@ -7,15 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B78E5AC2AABFCCA00366960 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78E5AB2AABFCCA00366960 /* ScreenView.swift */; };
+		9B78E5B62AAC247400366960 /* CloudAR.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B78E5B52AAC247400366960 /* CloudAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9B78E5B82AAC24E300366960 /* ThreeDScreenConotrller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78E5B72AAC24E300366960 /* ThreeDScreenConotrller.swift */; };
 		9BE4A2842AA96D5500FD00CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2832AA96D5500FD00CF /* AppDelegate.swift */; };
 		9BE4A2862AA96D5500FD00CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2852AA96D5500FD00CF /* SceneDelegate.swift */; };
 		9BE4A2882AA96D5500FD00CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2872AA96D5500FD00CF /* ViewController.swift */; };
 		9BE4A28B2AA96D5500FD00CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE4A2892AA96D5500FD00CF /* Main.storyboard */; };
 		9BE4A28D2AA96D5500FD00CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BE4A28C2AA96D5500FD00CF /* Assets.xcassets */; };
 		9BE4A2902AA96D5500FD00CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE4A28E2AA96D5500FD00CF /* LaunchScreen.storyboard */; };
+		9BE4A29A2AA96EFD00FD00CF /* StreamSdk.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9BE4A2992AA96EFD00FD00CF /* StreamSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9BE4A2A02AA96F5500FD00CF /* CloudARExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A29F2AA96F5500FD00CF /* CloudARExtension.swift */; };
+		9BE4A2A22AA9726200FD00CF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2A12AA9726200FD00CF /* LoginView.swift */; };
+		9BE4A2A42AA9726D00FD00CF /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2A32AA9726D00FD00CF /* LoginController.swift */; };
+		9BE4A2A72AA9823100FD00CF /* CommonFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2A62AA9823100FD00CF /* CommonFunc.swift */; };
+		9BE4A2A92AA9824D00FD00CF /* QueryFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2A82AA9824D00FD00CF /* QueryFunc.swift */; };
+		9BE4A2AC2AA99DEE00FD00CF /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2AB2AA99DEE00FD00CF /* ProjectView.swift */; };
+		9BE4A2AE2AA99DFA00FD00CF /* ProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2AD2AA99DFA00FD00CF /* ProjectController.swift */; };
+		9BE4A2B42AA9C11900FD00CF /* ScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2B32AA9C11900FD00CF /* ScreenController.swift */; };
+		9BE4A2B62AA9C15300FD00CF /* ScreenSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2B52AA9C15300FD00CF /* ScreenSubView.swift */; };
+		9BE4A2B82AA9C16200FD00CF /* ScreenSubController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2B72AA9C16200FD00CF /* ScreenSubController.swift */; };
+		9BE4A2BF2AA9C63200FD00CF /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2BE2AA9C63200FD00CF /* LoadView.swift */; };
+		9BE4A2C12AA9C63D00FD00CF /* LoadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2C02AA9C63D00FD00CF /* LoadController.swift */; };
+		9BE4A2C42AA9C70B00FD00CF /* ViewTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2C32AA9C70B00FD00CF /* ViewTool.swift */; };
+		9BE4A2C72AA9CA7B00FD00CF /* CloudARProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2C62AA9CA7B00FD00CF /* CloudARProtocol.swift */; };
+		9BE4A2CA2AA9CC7300FD00CF /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4A2C92AA9CC7300FD00CF /* WebSocketClient.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9BE4A2982AA96EE100FD00CF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9B78E5B62AAC247400366960 /* CloudAR.framework in CopyFiles */,
+				9BE4A29A2AA96EFD00FD00CF /* StreamSdk.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		9B78E5AB2AABFCCA00366960 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
+		9B78E5B52AAC247400366960 /* CloudAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudAR.framework; path = cloudarframework/CloudAR.framework; sourceTree = "<group>"; };
+		9B78E5B72AAC24E300366960 /* ThreeDScreenConotrller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDScreenConotrller.swift; sourceTree = "<group>"; };
 		9BE4A2802AA96D5500FD00CF /* CloudARExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudARExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE4A2832AA96D5500FD00CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BE4A2852AA96D5500FD00CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +60,22 @@
 		9BE4A28C2AA96D5500FD00CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BE4A28F2AA96D5500FD00CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BE4A2912AA96D5500FD00CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BE4A2992AA96EFD00FD00CF /* StreamSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StreamSdk.framework; path = cloudarframework/StreamSdk.framework; sourceTree = "<group>"; };
+		9BE4A29F2AA96F5500FD00CF /* CloudARExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudARExtension.swift; sourceTree = "<group>"; };
+		9BE4A2A12AA9726200FD00CF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9BE4A2A32AA9726D00FD00CF /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		9BE4A2A62AA9823100FD00CF /* CommonFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunc.swift; sourceTree = "<group>"; };
+		9BE4A2A82AA9824D00FD00CF /* QueryFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryFunc.swift; sourceTree = "<group>"; };
+		9BE4A2AB2AA99DEE00FD00CF /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		9BE4A2AD2AA99DFA00FD00CF /* ProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; };
+		9BE4A2B32AA9C11900FD00CF /* ScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenController.swift; sourceTree = "<group>"; };
+		9BE4A2B52AA9C15300FD00CF /* ScreenSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSubView.swift; sourceTree = "<group>"; };
+		9BE4A2B72AA9C16200FD00CF /* ScreenSubController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSubController.swift; sourceTree = "<group>"; };
+		9BE4A2BE2AA9C63200FD00CF /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
+		9BE4A2C02AA9C63D00FD00CF /* LoadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadController.swift; sourceTree = "<group>"; };
+		9BE4A2C32AA9C70B00FD00CF /* ViewTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTool.swift; sourceTree = "<group>"; };
+		9BE4A2C62AA9CA7B00FD00CF /* CloudARProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudARProtocol.swift; sourceTree = "<group>"; };
+		9BE4A2C92AA9CC7300FD00CF /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +92,8 @@
 		9BE4A2772AA96D5400FD00CF = {
 			isa = PBXGroup;
 			children = (
+				9B78E5B52AAC247400366960 /* CloudAR.framework */,
+				9BE4A2992AA96EFD00FD00CF /* StreamSdk.framework */,
 				9BE4A2822AA96D5500FD00CF /* CloudARExample */,
 				9BE4A2812AA96D5500FD00CF /* Products */,
 			);
@@ -56,10 +110,17 @@
 		9BE4A2822AA96D5500FD00CF /* CloudARExample */ = {
 			isa = PBXGroup;
 			children = (
+				9BE4A2C82AA9CC0F00FD00CF /* WebSocket */,
+				9BE4A2C52AA9CA5F00FD00CF /* Protocol */,
+				9BE4A2C22AA9C6FD00FD00CF /* Tools */,
+				9BE4A2B02AA9A53E00FD00CF /* View */,
+				9BE4A29E2AA96F3200FD00CF /* Extension */,
+				9BE4A2AF2AA9A52000FD00CF /* Data */,
+				9BE4A2A52AA9821E00FD00CF /* Func */,
+				9BE4A2892AA96D5500FD00CF /* Main.storyboard */,
 				9BE4A2832AA96D5500FD00CF /* AppDelegate.swift */,
 				9BE4A2852AA96D5500FD00CF /* SceneDelegate.swift */,
 				9BE4A2872AA96D5500FD00CF /* ViewController.swift */,
-				9BE4A2892AA96D5500FD00CF /* Main.storyboard */,
 				9BE4A28C2AA96D5500FD00CF /* Assets.xcassets */,
 				9BE4A28E2AA96D5500FD00CF /* LaunchScreen.storyboard */,
 				9BE4A2912AA96D5500FD00CF /* Info.plist */,
@@ -67,16 +128,126 @@
 			path = CloudARExample;
 			sourceTree = "<group>";
 		};
+		9BE4A29D2AA96F1D00FD00CF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2A12AA9726200FD00CF /* LoginView.swift */,
+				9BE4A2A32AA9726D00FD00CF /* LoginController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9BE4A29E2AA96F3200FD00CF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A29F2AA96F5500FD00CF /* CloudARExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		9BE4A2A52AA9821E00FD00CF /* Func */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2A62AA9823100FD00CF /* CommonFunc.swift */,
+				9BE4A2A82AA9824D00FD00CF /* QueryFunc.swift */,
+			);
+			path = Func;
+			sourceTree = "<group>";
+		};
+		9BE4A2AA2AA99DD600FD00CF /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2AB2AA99DEE00FD00CF /* ProjectView.swift */,
+				9BE4A2AD2AA99DFA00FD00CF /* ProjectController.swift */,
+			);
+			path = Project;
+			sourceTree = "<group>";
+		};
+		9BE4A2AF2AA9A52000FD00CF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9BE4A2B02AA9A53E00FD00CF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2BD2AA9C60600FD00CF /* Load */,
+				9BE4A2B22AA9C0DB00FD00CF /* Screen */,
+				9BE4A29D2AA96F1D00FD00CF /* Login */,
+				9BE4A2AA2AA99DD600FD00CF /* Project */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9BE4A2B22AA9C0DB00FD00CF /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2B32AA9C11900FD00CF /* ScreenController.swift */,
+				9BE4A2B52AA9C15300FD00CF /* ScreenSubView.swift */,
+				9BE4A2B72AA9C16200FD00CF /* ScreenSubController.swift */,
+				9B78E5AB2AABFCCA00366960 /* ScreenView.swift */,
+				9B78E5B72AAC24E300366960 /* ThreeDScreenConotrller.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		9BE4A2BD2AA9C60600FD00CF /* Load */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2BE2AA9C63200FD00CF /* LoadView.swift */,
+				9BE4A2C02AA9C63D00FD00CF /* LoadController.swift */,
+			);
+			path = Load;
+			sourceTree = "<group>";
+		};
+		9BE4A2C22AA9C6FD00FD00CF /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2C32AA9C70B00FD00CF /* ViewTool.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		9BE4A2C52AA9CA5F00FD00CF /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2C62AA9CA7B00FD00CF /* CloudARProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		9BE4A2C82AA9CC0F00FD00CF /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4A2C92AA9CC7300FD00CF /* WebSocketClient.swift */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9BE4A2972AA96EC000FD00CF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		9BE4A27F2AA96D5400FD00CF /* CloudARExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BE4A2942AA96D5500FD00CF /* Build configuration list for PBXNativeTarget "CloudARExample" */;
 			buildPhases = (
+				9BE4A2972AA96EC000FD00CF /* Headers */,
 				9BE4A27C2AA96D5400FD00CF /* Sources */,
 				9BE4A27D2AA96D5400FD00CF /* Frameworks */,
 				9BE4A27E2AA96D5400FD00CF /* Resources */,
+				9BE4A2982AA96EE100FD00CF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -138,8 +309,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BE4A2A02AA96F5500FD00CF /* CloudARExtension.swift in Sources */,
+				9BE4A2A42AA9726D00FD00CF /* LoginController.swift in Sources */,
+				9BE4A2C42AA9C70B00FD00CF /* ViewTool.swift in Sources */,
 				9BE4A2882AA96D5500FD00CF /* ViewController.swift in Sources */,
+				9BE4A2B42AA9C11900FD00CF /* ScreenController.swift in Sources */,
+				9B78E5B82AAC24E300366960 /* ThreeDScreenConotrller.swift in Sources */,
+				9BE4A2C12AA9C63D00FD00CF /* LoadController.swift in Sources */,
 				9BE4A2842AA96D5500FD00CF /* AppDelegate.swift in Sources */,
+				9BE4A2CA2AA9CC7300FD00CF /* WebSocketClient.swift in Sources */,
+				9BE4A2B82AA9C16200FD00CF /* ScreenSubController.swift in Sources */,
+				9BE4A2A92AA9824D00FD00CF /* QueryFunc.swift in Sources */,
+				9BE4A2AE2AA99DFA00FD00CF /* ProjectController.swift in Sources */,
+				9BE4A2A22AA9726200FD00CF /* LoginView.swift in Sources */,
+				9BE4A2AC2AA99DEE00FD00CF /* ProjectView.swift in Sources */,
+				9BE4A2A72AA9823100FD00CF /* CommonFunc.swift in Sources */,
+				9BE4A2B62AA9C15300FD00CF /* ScreenSubView.swift in Sources */,
+				9B78E5AC2AABFCCA00366960 /* ScreenView.swift in Sources */,
+				9BE4A2C72AA9CA7B00FD00CF /* CloudARProtocol.swift in Sources */,
+				9BE4A2BF2AA9C63200FD00CF /* LoadView.swift in Sources */,
 				9BE4A2862AA96D5500FD00CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,13 +476,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/cloudarframework",
+					"$(PROJECT_DIR)",
+					"$(inherited)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CloudARExample/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for Augmented Reality (AR).";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,13 +511,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/cloudarframework",
+					"$(PROJECT_DIR)",
+					"$(inherited)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CloudARExample/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for Augmented Reality (AR).";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

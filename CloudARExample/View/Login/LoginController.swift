@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CloudAR
 
 class LoginController: UIViewController
 {
