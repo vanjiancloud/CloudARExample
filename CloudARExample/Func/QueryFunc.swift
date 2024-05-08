@@ -69,8 +69,8 @@ func requestProjectList(completion: @escaping(Bool,[String:Any]?) -> Void) {
     }
 }
 
-//MARK: 获取token，用于请求模型
-public func requestTokenForLoadModel(request: inout DataRequest?,auth: String,password: String,projectID: String,completion: @escaping (Result<String,Error>) -> Void)
+//MARK: 获取token
+public func requestToken(request: inout DataRequest?,auth: String,password: String,projectID: String,completion: @escaping (Result<String,Error>) -> Void)
 {
     let url = car_URL.urlPre + "OurBim/getAccessToken?appid=\(projectID)&auth=\(auth)&password=\(password)"
     
@@ -100,12 +100,55 @@ public func requestTokenForLoadModel(request: inout DataRequest?,auth: String,pa
     }
 }
 
-fileprivate func requestARModel(request: inout DataRequest?,token: String,projectID: String,completion: @escaping (Result<String,Error>) ->Void) {
-    if car_UserInfo.hostID.isEmpty {
-        completion(.failure(car_FError.customError(message: "userinfo's hostID is empty")))
-        return
+//MARK: 获取ip资源
+func requestIp(request: inout DataRequest?,auth: String,password: String,projectID:String,completion: @escaping (Result<Void,Error>) -> Void) {
+    requestToken(request: &request, auth: auth, password: password, projectID: projectID, completion: { result in
+        switch result {
+        case .success(let token):
+            print("get token success")
+            let url = car_URL.urlPre + "OurBim/requestXr?appliId=\(projectID)&plateType=3&token=\(token)"
+            AF.request(url,method:.post).response { (response:AFDataResponse) in
+                switch response.result {
+                case .success(let data):
+                    if let jsonObject = try? JSONSerialization.jsonObject(with: data ?? Data()),
+                       let json = jsonObject as? [String:Any],
+                       let code = json["code"] as? Int,
+                       let msg = json["message"] as? String
+                    {
+                        if code == 0 {
+                            if let data = json["data"] as? [String:Any] {
+                                //在这里预先把相关信息存储了，但后续的请求错误的话，这些数据应该手动失效
+                                car_UserInfo.cloudarIP = data["publicIp"] as? String ?? ""
+                                car_UserInfo.hostID = data["hostID"] as? String ?? ""
+                                car_UserInfo.taskID = data["taskId"] as? String ?? ""
+                                print("ip:\(car_UserInfo.cloudarIP),hostid:\(car_UserInfo.hostID),taskid:\(car_UserInfo.taskID)")
+                                completion(.success(()))
+                            }
+                        } else {
+                            completion(.failure(car_FError.customError(message: msg)))
+                        }
+                    }
+                    break
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+                }
+        case .failure(let error):
+            print("get token fail")
+            completion(.failure(error))
+        }
+    })
+}
+
+//MARK: 请求加载AR模型
+func requestARModelLoad(request: inout DataRequest?,token: String,projectID: String,completion: @escaping (Bool,String) -> Void) {
+    //请求模型
+    if car_UserInfo.hostID.isEmpty || car_UserInfo.taskID.isEmpty {
+        completion(false,"hostid or taskid is empty")
     }
-    let url = car_URL.urlPre + "OurBim/requestOurBim?appliId=\(projectID)&token=\(token)&appType=ar&senderId=\(car_UserInfo.senderID)&nonce=\(arc4random())&hostId=\(car_UserInfo.hostID)&mode=reboot"
+    
+    let url = car_URL.urlPre + "OurBim/startXr?appliId=\(projectID)&token=\(token)&plateType=3&senderId=\(car_UserInfo.senderID)&nonce=\(arc4random())&hostId=\(car_UserInfo.hostID)&mode=reboot&taskId=\(car_UserInfo.taskID)&accessMode=1"
+    
     request = AF.request(url,method:.post)
     request?.response { (response:AFDataResponse) in
         switch response.result {
@@ -115,49 +158,19 @@ fileprivate func requestARModel(request: inout DataRequest?,token: String,projec
                let code = json["code"] as? Int,
                let msg = json["message"] as? String
             {
-                if code == 0 {
-                    if let data = json["data"] as? String {
-                        completion(.success(data))
-                    }
-                } else {
-                    completion(.failure(car_FError.customError(message: msg)))
-                }
+                completion(code == 0,msg)
+                
             } else {
-                completion(.failure(car_FError.customError(message: "not found code or message")))
+                completion(false,"response incomplete")
             }
-        case .failure(let error):
-            completion(.failure(error))
-        }
-    }
-}
-
-//MARK: 请求加载AR模型
-func requestARModelLoad(request: inout DataRequest?,token:String,projectID: String,completion: @escaping (Bool,String) -> Void) {
-    //请求模型
-    requestARModel(request: &request,token: token, projectID: projectID) { result in
-        switch result {
-        case .success(let string):
-            car_UserInfo.taskID = string
-            car_UserInfo.currProID = projectID
-            completion(true,"")
-        case .failure(let error):
-            print(error)
-            if let carError = error as? car_FError {
-                switch carError {
-                case .customError(let message):
-                    completion(false,message)
-                    break
-                }
-            } else {
-                completion(false,String(describing: error))
-            }
-            
+        case .failure(_):
+            completion(false,"request invalid")
         }
     }
 }
 
 //MARK: 请求加载threeD模型
-func queryThreeDModelLoad(request: inout DataRequest?,token:String,projectID: String,completion: @escaping (Bool,String) -> Void) {
+func queryThreeDModelLoad(request: inout DataRequest?,token: String,projectID: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "OurBim/requestOurBim?appliId=\(projectID)&token=\(token)"
     request = AF.request(url,method:.post)
     request?.response { (response: AFDataResponse) in
@@ -193,20 +206,43 @@ func queryThreeDModelLoad(request: inout DataRequest?,token:String,projectID: St
             break
         }
     }
+    
 }
 
 //MARK: 模型退出
 func sendModelQuit(screenType: car_ScreenMode) {
     switch screenType {
     case .AR:
-        let url = car_URL.xrUrlPre + "v1/ShutDownTask?SenderId=\(car_UserInfo.senderID)&HostId=\(car_UserInfo.hostID)&nonce=\(arc4random())&taskid=\(car_UserInfo.taskID)"
+        let url = car_URL.urlPre + "OurBim/closeOurbim?taskId=\(car_UserInfo.taskID)"
         AF.request(url,method:.get).response { (_: AFDataResponse) in
         }
-    case .ThreeD:
-        //TODO:
-        break
-    case .None:
-        break
+        // 关闭ar模型时，需要重启steamvr
+        restartSteamvr(completion: {_,_ in })
+    default:
+        print("does not request")
     }
    
+}
+
+//MARK: 重启steamvr
+func restartSteamvr(completion: @escaping (Bool,String) -> Void ) {
+    let url = car_URL.xrUrlPre + "v1/StartupInsByProjectId?tag=ar&ProjectId=&mode=reboot&HostId=\(car_UserInfo.hostID)&SenderId=\(car_UserInfo.senderID)&nonce=\(arc4random())"
+    AF.request(url,method:.get).response { (response: AFDataResponse) in
+            switch response.result {
+            case .success(let JSON):
+                do {
+                    if let jsonObject = try? JSONSerialization.jsonObject(with: JSON ?? Data(), options: .allowFragments),
+                       let json = jsonObject as? [String:Any],
+                       let message = json["msg"] as? String,
+                       let success = json["success"] as? Bool
+                    {
+                        completion(success,message)
+                    } else {
+                        completion(false,"response data error")
+                    }
+                }
+            case .failure(_ ):
+                completion(false,"request invalid")
+            }
+        }
 }

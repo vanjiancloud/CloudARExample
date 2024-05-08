@@ -18,7 +18,7 @@ extension car_UserInfo
 
 extension car_URL
 {
-    static var javaWS: String = "ws://120.86.64.201:11011"
+    static var javaWS: String = "wss://api.ourbim.com:11023"
 }
 
 

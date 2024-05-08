@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CloudAR
+import Alamofire
 
 struct ProjectData
 {
@@ -22,6 +23,10 @@ class ProjectController: UIViewController, UITableViewDataSource, UITableViewDel
     
     var projectView: ProjectView!
     private var projectList: [ProjectData] = []
+    
+    // 是否正在加载项目中，防止多次进入项目点击
+    var loadingModel: Bool = false
+    private var tokenRequest: DataRequest?
     
     override func loadView() {
         super.loadView()
@@ -56,29 +61,48 @@ class ProjectController: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < self.projectList.count {
-            //进入场景
-            // 再此进入ar场景,需要间隔10s左右
-            if car_EngineStatus.lastExitARTime < 0 || (Date().timeStamp - car_EngineStatus.lastExitARTime) > 10 {
-                self.projectView?.table.cellForRow(at: indexPath)?.selectionStyle = .none
-                let controller = ScreenController()
-                controller.modalPresentationStyle = .fullScreen
-                self.present(controller, animated: false,completion: nil)
-                controller.loadModel(projectID: projectList[indexPath.row].id, screenType: .AR)
+            if !loadingModel {
+                //默认是进入ar场景
+                loadingModel = true
+                let auth = UserDefaults.standard.string(forKey: "username") ?? ""
+                let password = UserDefaults.standard.string(forKey: "password") ?? ""
+                let projectId = projectList[indexPath.row].id
                 
-            } else {
-                showTip(tip: "再等一会", parentView: self.view, false, completion: {
-                    self.projectView?.table.cellForRow(at: indexPath)?.selectionStyle = .none
+                requestIp(request: &tokenRequest, auth: auth, password: password, projectID: projectId, completion: { result in
+                    switch result {
+                    case .success(_):
+                        restartSteamvr(completion: { success,reason in
+                            // 在这里重启steamvr是为了在启动ar前能有个正常的环境，然后需要等待4-5s的重启过程
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                self.projectView?.table.cellForRow(at: indexPath)?.selectionStyle = .none
+                                let controller = ScreenController()
+                                controller.modalPresentationStyle = .fullScreen
+                                self.present(controller, animated: false,completion: nil)
+                                self.loadingModel = false
+                                self.tokenRequest = nil
+                                controller.loadModel(projectID: projectId, screenType: .AR)
+                            }
+                        })
+                    case .failure(let error):
+                        print("request ip fail: \(error)")
+                        self.loadingModel = false
+                        self.tokenRequest = nil
+                        showTip(tip: "ip获取失败", parentView: self.view, false, completion: {
+                            self.projectView?.table.cellForRow(at: indexPath)?.selectionStyle = .none
+                        })
+                    }
                 })
             }
-        } else {
-            showTip(tip: "进入失败", parentView: self.view, false, completion: {
-                self.projectView?.table.cellForRow(at: indexPath)?.selectionStyle = .none
-            })
+            else {
+                    showTip(tip: "请勿重复进入", parentView: self.view, false, completion: {
+                        self.projectView?.table.cellForRow(at: indexPath)?.selectionStyle = .none
+                    })
+                }
+            }
         }
-        
-    }
     
     private func queryProjectList() {
         requestProjectList(completion: {(isSuccess,result) in
@@ -102,3 +126,4 @@ class ProjectController: UIViewController, UITableViewDataSource, UITableViewDel
         })
     }
 }
+

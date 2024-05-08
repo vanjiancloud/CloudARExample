@@ -14,6 +14,7 @@ class ScreenController: UIViewController
 ,CloudXRConnectProtocol //cloudxr连接代理
 ,EnterPositionPtocotol //进入定位
 ,ModelLoadFinishProtocol //场景
+,CloudXRClientStateUpdateProtocol //cloudxr客户端状态更新代理
 {
     
     var screenSubController: ScreenSubController!
@@ -23,6 +24,8 @@ class ScreenController: UIViewController
     var arConnectStatsTimer: Timer? //ar连接状态定时器
     //ThreeD
     var threeDScreenController: ThreeDScreenController! //threeD相关
+    
+    var isInSwitchModel : Bool = false
     
     override func viewDidLoad() {
         
@@ -48,7 +51,10 @@ class ScreenController: UIViewController
         }), for: .touchUpInside)
         
         screenSubController?.screenSubView?.switchModeView?.btnSwitch?.addAction(UIAction(handler: {_ in
-            self.handleSwitchScreenMode(toScreenMode: car_EngineStatus.screenMode == .AR ? .ThreeD : .AR)
+            if (!self.isInSwitchModel)
+            {
+                self.handleSwitchScreenMode(toScreenMode: car_EngineStatus.screenMode == .AR ? .ThreeD : .AR)
+            }
         }), for: .touchUpInside)
         
         screenSubController?.screenSubView?.enterPositionBtn?.btn?.addAction(UIAction(handler: {_ in
@@ -69,6 +75,8 @@ class ScreenController: UIViewController
             screenSubController!.view.isHidden = false
         case .SpacePosition:
             break
+        @unknown default:
+            break
         }
     }
     func handleCanclePosition() {
@@ -77,6 +85,7 @@ class ScreenController: UIViewController
     }
     
     //MARK: CloudXRConnectProtocol
+    // 首次连接时的反馈
     func notifyConnect(connected: Bool) {
         if connected {
             loadController!.queryLoadModel()
@@ -86,6 +95,11 @@ class ScreenController: UIViewController
             arScreenController = nil
             handleModelLoadFinish(isSuccess: false, reason: "cloudxr连接失败", screenType: .AR, project: "")
         }
+    }
+    // MARK: CloudXRConnectProtocol reconnect
+    // 重连时的反馈
+    func notifyReconnect(connected: Bool) {
+        //TODO:
     }
     //MARK: ModelLoadFinishProtocol
     func handleModelLoadFinish(isSuccess: Bool, reason: String, screenType: CloudAR.car_ScreenMode, project: String) {
@@ -119,10 +133,47 @@ class ScreenController: UIViewController
     
     //MARK: SwitchScreenModeProtocol
     func handleSwitchScreenMode(toScreenMode: CloudAR.car_ScreenMode) {
-        // 退出当前模式的场景
-        sendModelQuit(screenType: toScreenMode == .AR ? .ThreeD : .AR)
-        // 加载新模式的模型
-        loadModel(projectID: car_UserInfo.currProID, screenType: toScreenMode) //同一模型用另一种方式打开，所以projectID不变
+        
+        if (isInSwitchModel)
+        {
+            showTip(tip: "已经在切换中", parentView: self.view, false, completion: {})
+        } else {
+            isInSwitchModel = true
+            // 退出当前模式的场景
+            sendModelQuit(screenType: toScreenMode == .AR ? .ThreeD : .AR)
+            
+            // 如果是切换到ar模式下，需要重启steamvr，然后再loadModel
+            if (toScreenMode == .AR)
+            {
+                // 不重启steamvr，对连接cloud服务会有一定的影响
+                restartSteamvr(completion: {success,reason in })
+                // 加载新模式的模型: 这里延迟是为了等待stemvr的重启，这个等待会造成 UI切换 不流畅（可以根据自定义切换ui来解决）
+                DispatchQueue.main.asyncAfter(deadline: .now() + 8.5) {
+                    self.loadModel(projectID: car_UserInfo.currProID, screenType: toScreenMode) //同一模型用另一种方式打开，所以projectID不变
+                    self.isInSwitchModel = false
+                }
+            } else {
+                self.loadModel(projectID: car_UserInfo.currProID, screenType: toScreenMode) //同一模型用另一种方式打开，所以projectID不变
+                isInSwitchModel = false
+            }
+        }
+    }
+    
+    //MARK: CloudXRClientStateUpdateProtocol
+    func notifyClientStateUpdate(state: car_ClientState, reason: car_ClientStateReason) {
+        if (state == .disconnected)
+        {
+            // 创建一个弹窗：显示是否重连
+            var disConnectAlert = UIAlertController(title: "提示", message: "服务断开", preferredStyle: .alert)
+            
+            disConnectAlert.addAction(UIAlertAction(title: "退出", style: .cancel){_ in })
+            
+            disConnectAlert.addAction(UIAlertAction(title: "重连", style: .default) { _ in
+                self.reconnectCloudxr()
+            })
+            
+            present(disConnectAlert, animated: true)
+        }
     }
     
     //MARK: 打印CloudXR连接状态 只有ar模式有效
@@ -181,6 +232,8 @@ class ScreenController: UIViewController
             break
         case .None:
             break
+        @unknown default:
+            break
         }
     }
     
@@ -204,5 +257,10 @@ class ScreenController: UIViewController
         
         self.arConnectStatsTimer?.invalidate()
         self.dismiss(animated: false)
+    }
+    
+    private func reconnectCloudxr() {
+        let (success,reason) = arScreenController.reconnect()
+        
     }
 }

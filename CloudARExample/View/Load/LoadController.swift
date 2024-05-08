@@ -95,15 +95,18 @@ class LoadController: UIViewController,SocketEventProtocol
         let auth = UserDefaults.standard.string(forKey: "username") ?? ""
         let password = UserDefaults.standard.string(forKey: "password") ?? ""
         print("auth:\(auth),password:\(password),projectID:\(needLoadProject)")
-        requestTokenForLoadModel(request:&tokenRequest,auth: auth, password: password, projectID: needLoadProject) { result in
+
+        requestToken(request:&tokenRequest,auth: auth, password: password, projectID: needLoadProject) { result in
             switch result {
             case .success(let token):
                 if self.needLoadMode == .AR {
                     requestARModelLoad(request:&self.modelLoadRequest,token: token, projectID: self.needLoadProject) { (result,msg) in
                         if result {
+                            print("ar model websocket connect")
                             self.queryLoadProgress()
                             WebSocketClient.shared.connect()
                         } else {
+                            print("request ar model fail: \(msg)")
                             self.modelLoadFinishProtocol?.handleModelLoadFinish(isSuccess: false, reason: msg, screenType: .AR, project: self.needLoadProject)
                         }
                     }

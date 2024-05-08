@@ -53,6 +53,7 @@ class WebSocketClient : WebSocketDelegate
     }
     
     private func validOfURL() -> (Bool,String) {
+        //return (true,"ws://120.86.64.201:16580/websocket")
         return (!car_UserInfo.taskID.isEmpty,"\(car_URL.javaWS)/vjapi/websocket/\(car_UserInfo.taskID)")
     }
     

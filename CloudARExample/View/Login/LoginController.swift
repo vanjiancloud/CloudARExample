@@ -23,8 +23,16 @@ class LoginController: UIViewController
         self.view.addSubview(loginView)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        car_URL.urlPre = "https://api.ourbim.com:11023/vjapi/"
+        car_URL.xrUrlPre = "https://api.ourbim.com:14041/api/"
+        //car_URL.javaWS = "https:/"
+    }
+    
     @objc private func handleLogin(_ sender: Any) {
-        self.loginView?.confirm?.isEnabled = false
+        //self.loginView?.confirm?.isEnabled = false
         let username = loginView?.name?.text
         let password = loginView?.password?.text
         if username?.count ?? 0 > 0 && password?.count ?? 0 > 0 {
