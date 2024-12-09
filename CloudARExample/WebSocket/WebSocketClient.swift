@@ -49,6 +49,9 @@ class WebSocketClient : WebSocketDelegate
         case let .error(error):
             isConnected = false
             print("ws connect error:\(String(describing: error))")
+        case .peerClosed:
+            isConnected = false
+            print("peer closed")
         }
     }
     

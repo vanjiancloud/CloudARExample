@@ -16,6 +16,16 @@ class ScreenController: UIViewController
 ,ModelLoadFinishProtocol //场景
 ,CloudXRClientStateUpdateProtocol //cloudxr客户端状态更新代理
 {
+    func notifyServerDisConnect() {
+        
+    }
+    
+    func notifyConnectQualityState(quality: CloudAR.car_StreamQuality, reason: CloudAR.car_StreamQualityReason) {
+    }
+    func notifyConnectQualityState() {
+    }
+    func notifyLatchFrameError() {
+    }
     
     var screenSubController: ScreenSubController!
     var loadController: LoadController! //模型加载

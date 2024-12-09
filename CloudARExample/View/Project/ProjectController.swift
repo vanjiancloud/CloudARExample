@@ -76,7 +76,7 @@ class ProjectController: UIViewController, UITableViewDataSource, UITableViewDel
                     case .success(_):
                         restartSteamvr(completion: { success,reason in
                             // 在这里重启steamvr是为了在启动ar前能有个正常的环境，然后需要等待4-5s的重启过程
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                                 self.projectView?.table.cellForRow(at: indexPath)?.selectionStyle = .none
                                 let controller = ScreenController()
                                 controller.modalPresentationStyle = .fullScreen
